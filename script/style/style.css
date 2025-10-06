@@ -1,0 +1,16 @@
+body{
+    background-color: white;
+}
+
+#ctx{
+    border: 1px solid black;
+    width: 500px;
+    height: 500px;
+}
+
+#main_screen{
+    position: absolute;
+    left: 50%;
+    top: 10%;
+    transform: translate(-50%, 0%);
+}
