@@ -32,7 +32,7 @@ let random_enemy = function(){
         type = "ranged"; height = 15; width = 15; speed = 2; hp = 1;
     } 
     else if(rand > 0.75){
-        type = "tank"; height = 30; width = 50; speed = 3; hp = 5;
+        type = "tank"; height = 30; width = 50; speed = 3; hp = 3;
     }
     else if(rand > 0.5){
         type = "runner"; height = 30; width = 20; speed = 7; hp = 1;
@@ -176,3 +176,4 @@ let update_entity = function(entity){
     draw_entity(entity);
     return retv;
 }
+
