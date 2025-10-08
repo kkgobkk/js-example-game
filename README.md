@@ -1,5 +1,5 @@
 # js-example-game
-An example game made with vanilla js only
+An example game made with vanilla js only. Run by opening "index.html" in any browser (preferably crhromium or firefox based, and in a fullscreen window)
 
 ## controls
   * use WASD to move
