@@ -1,8 +1,9 @@
 let = enemy_list = {};
+let enemy_count = 0;
 
-let new_enemy = function(id, x, y, speed_x, speed_y, width, height){
+let new_enemy = function(type, id, x, y, speed_x, speed_y, width, height, hp){
     let enemy = {
-        type: "enemy",
+        type: type,
         x: x,
         y: y,
         speed_x: speed_x,
@@ -16,33 +17,41 @@ let new_enemy = function(id, x, y, speed_x, speed_y, width, height){
         attack_cooldown: 20,
         attack_counter: 0,
         i_frames: 0,
+        hp: hp,
     }
     enemy_list[id] = enemy;
+    enemy_count ++;
 }
 
 let random_enemy = function(){
     let rand = Math.random();
-    let pos_x = rand*MAX_X;
-    let pos_y = Math.random()*MAX_Y;
     let speed, height, width, type;
 
-    if(pos_x == player.x && pos_y == player.y){
-        pos_x += 30;
-        if(pos_x >= MAX_X)
-            pos_x -= 60;
-    }
 
     if(rand > 0.9){
-        type = "ranged"; height = 15; width = 15; speed = 2;
-    } else if(rand > 0.75){
-        type = "tank"; height = 30; width = 50; speed = 2;
-    } else if(rand > 0.5){
-        type = "runner"; height = 30; width = 20; speed = 7;
-    } else{
-        type == "normal"; height = 20; width = 20; speed = 4;
+        type = "ranged"; height = 15; width = 15; speed = 2; hp = 1;
+    } 
+    else if(rand > 0.75){
+        type = "tank"; height = 30; width = 50; speed = 3; hp = 5;
+    }
+    else if(rand > 0.5){
+        type = "runner"; height = 30; width = 20; speed = 7; hp = 1;
+    }
+    else{
+        type = "normal"; height = 20; width = 20; speed = 5; hp = 1;
+    }
+
+    pos_x = Math.ceil(width/2) + rand * (MAX_X - width - 1);
+    pos_y = Math.ceil(height/2) + Math.random() * (MAX_Y - height - 1);
+
+    if(pos_x == player.x && pos_y == player.y){
+        pos_x += 60;
+        if(pos_x >= MAX_X)
+            pos_x -= 120;
     }
 
     new_enemy(
+        type,
         Math.random(),
         pos_x,
         pos_y,
@@ -50,6 +59,7 @@ let random_enemy = function(){
         speed,
         width,
         height,
+        hp,
     );
 }
 
@@ -73,20 +83,21 @@ let collision_test = function(entity1, entity2){
 
 let bullet_list = {};
 
-let new_bullet = function(id, x, y, speed_x, speed_y, width, height){
+let new_bullet = function(id, x, y, speed_x, speed_y, width, height, can_damage_player){
     let bullet = {
         type: "bullet",
         x: x,
         y: y,
         speed_x: speed_x,
         speed_y: speed_y,
-        color: "#000000",
+        color: can_damage_player ? "#aa0000" : "#006600",
         alt_color: "#000000",
         id: id,
         width: width,
         height: height,
         timer: 0,
         i_frames: 0,
+        can_damage_player: can_damage_player,
     }
     bullet_list[id] = bullet;
 }
@@ -101,11 +112,11 @@ let shoot_bullet = function(actor, angle){
         15* Math.sin(angle),
         5,
         5,
+        actor.type == "player" ? 0 : 1,
     );
 }
 
 let perform_attack = function(actor, number, cooldown_factor){
-    if(number == undefined)  number = 1;
     if(number >= 72)  number = 72;
     if(actor.attack_counter > actor.attack_cooldown * cooldown_factor){
         for(let i = - Math.floor(number/2); i < Math.ceil(number/2); i++){
@@ -135,10 +146,13 @@ let update_entity_position = function(entity){
         entity.x += entity.speed_x;
         entity.y += entity.speed_y;
         
-        if(entity.x > MAX_X || entity.x < 0){
+        let x = entity.x - Math.round(entity.width / 2);
+        let y = entity.y - Math.round(entity.height / 2);
+
+        if(x + entity.width >= MAX_X || x <= 0){
             entity.speed_x = -entity.speed_x;
         }
-        if(entity.y > MAX_Y || entity.y < 0){
+        if(y + entity.height >= MAX_Y || y <= 0){
             entity.speed_y = -entity.speed_y;
         }
         return true;

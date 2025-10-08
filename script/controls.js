@@ -7,9 +7,17 @@ document.addEventListener("mousemove", (mouse) =>
 }
 );
 
-document.addEventListener("click", () =>
+document.addEventListener("mousedown", (e) =>
     {
-        perform_attack(player, 1, 1);
+        if(e.button == 0)
+            player.shooting = true;
+    }
+);
+
+document.addEventListener("mouseup", (e) =>
+    {
+        if(e.button == 0)
+            player.shooting = false;
     }
 );
 

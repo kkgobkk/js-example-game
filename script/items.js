@@ -1,4 +1,5 @@
 let item_list = {};
+let item_count = 0;
 
 let new_item = function(type, id, x, y, speed_x, speed_y, width, height, color){
     let item = {
@@ -15,6 +16,7 @@ let new_item = function(type, id, x, y, speed_x, speed_y, width, height, color){
         i_frames: 0,
     }
     item_list[id] = item;
+    item_count ++;
 }
 
 let random_item = function(){
@@ -40,8 +42,8 @@ let random_item = function(){
     new_item(
         type,
         Math.random(),
-        Math.random()*MAX_X,
-        Math.random()*MAX_Y,
+        10 + Math.random()*(MAX_X - 20),
+        10 + Math.random()*(MAX_Y - 20),
         0,
         0,
         10,

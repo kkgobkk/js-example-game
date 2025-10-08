@@ -12,13 +12,14 @@ let player = {
     hp: 100,
     width: 20,
     height: 20,
-    attack_cooldown: 5,
+    attack_cooldown: 10,
     attack_counter: 0,
     pressing_up: false,
     pressing_right:false,
     pressing_down: false,
     pressing_left: false,
     aim_angle: 0,
+    shooting: false,
     i_frames: 0,
 }
 
