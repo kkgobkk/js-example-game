@@ -1,10 +1,13 @@
+let score = 0;
+
 let player = {
     type: "player",
     x: 250,
     y: 70,
     speed_x: 10,
     speed_y: 10,
-    color: "#00ff00",
+    color: "#2e962e",
+    alt_color: "#80bb80",
     max_hp: 100,
     hp: 100,
     width: 20,
@@ -16,6 +19,7 @@ let player = {
     pressing_down: false,
     pressing_left: false,
     aim_angle: 0,
+    i_frames: 0,
 }
 
 let update_player_position = function(){

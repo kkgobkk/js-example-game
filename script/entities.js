@@ -8,25 +8,48 @@ let new_enemy = function(id, x, y, speed_x, speed_y, width, height){
         speed_x: speed_x,
         speed_y: speed_y,
         color: "#ff0000",
+        alt_color: "#ff0000",
         id: id,
         width: width,
         height: height,
         aim_angle: 0,
         attack_cooldown: 20,
         attack_counter: 0,
+        i_frames: 0,
     }
     enemy_list[id] = enemy;
 }
 
 let random_enemy = function(){
+    let rand = Math.random();
+    let pos_x = rand*MAX_X;
+    let pos_y = Math.random()*MAX_Y;
+    let speed, height, width, type;
+
+    if(pos_x == player.x && pos_y == player.y){
+        pos_x += 30;
+        if(pos_x >= MAX_X)
+            pos_x -= 60;
+    }
+
+    if(rand > 0.9){
+        type = "ranged"; height = 15; width = 15; speed = 2;
+    } else if(rand > 0.75){
+        type = "tank"; height = 30; width = 50; speed = 2;
+    } else if(rand > 0.5){
+        type = "runner"; height = 30; width = 20; speed = 7;
+    } else{
+        type == "normal"; height = 20; width = 20; speed = 4;
+    }
+
     new_enemy(
         Math.random(),
-        Math.random()*MAX_X,
-        Math.random()*MAX_Y,
-        5 + Math.random()*2,
-        5 + Math.random()*2,
-        10 + Math.random()*20,
-        10 + Math.random()*20,
+        pos_x,
+        pos_y,
+        speed,
+        speed,
+        width,
+        height,
     );
 }
 
@@ -37,10 +60,15 @@ let distance = function(entity1, entity2){
 }
 
 let collision_test = function(entity1, entity2){
-    return entity1.x <= entity2.x + entity2.width
-        && entity2.x <= entity1.x + entity1.width
-        && entity1.y <= entity2.y + entity2.height
-        && entity2.y <= entity1.y + entity1.height;
+    let x1 = entity1.x - Math.round(entity1.width / 2);
+    let y1 = entity1.y - Math.round(entity1.height / 2);
+    let x2 = entity2.x - Math.round(entity2.width / 2);
+    let y2 = entity2.y - Math.round(entity2.height / 2);
+
+    return x1 <= x2 + entity2.width
+        && x2 <= x1 + entity1.width
+        && y1 <= y2 + entity2.height
+        && y2 <= y1 + entity1.height;
 }
 
 let bullet_list = {};
@@ -53,10 +81,12 @@ let new_bullet = function(id, x, y, speed_x, speed_y, width, height){
         speed_x: speed_x,
         speed_y: speed_y,
         color: "#000000",
+        alt_color: "#000000",
         id: id,
         width: width,
         height: height,
         timer: 0,
+        i_frames: 0,
     }
     bullet_list[id] = bullet;
 }
@@ -95,10 +125,10 @@ let update_bullet_position = function(bullet){
 }
 
 let update_entity_position = function(entity){
-    if(entity.type = "player"){
+    if(entity.type == "player"){
         return update_player_position(entity);
     }
-    else if(entity.type = "bullet"){
+    else if(entity.type == "bullet"){
         return update_bullet_position(entity);
     }
     else{
@@ -117,7 +147,10 @@ let update_entity_position = function(entity){
 
 let draw_entity = function(entity){
     ctx.save();
-    ctx.fillStyle = entity.color;
+    if(entity.i_frames <= 0)
+        ctx.fillStyle = entity.color;
+    else
+        ctx.fillStyle = entity.alt_color;
     let width_offset = Math.floor(entity.width/2);
     let height_offset = Math.floor(entity.height/2);
     ctx.fillRect(entity.x - width_offset, entity.y - height_offset, entity.width, entity.height);
