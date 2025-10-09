@@ -32,7 +32,7 @@ let random_item = function(){
         type = "shield";
         color = "#5599ff";
     }
-    else if(rand > 0.0){
+    else if(rand > 0.5){
         type = "heal";
         color = "#00ff00"
     }
@@ -79,3 +79,4 @@ let activate_item = function(type){
 
     return done;
 }
+
