@@ -10,10 +10,11 @@ An example game made with vanilla js only. Run by opening "index.html" in any br
 
 ## enemies
 
-* square enemies take 1 hit
-* tall enemies move faster
-* large enemies take multiple hits to kill
-* small enemies shoot projectiles at you
+* \*\*normal\*\*: square enemies that take 1 hit
+* \*\*runners\*\*: tall enemies who move faster
+* \*\*tanks\*\*: large enemies take multiple hits to kill
+* \*\*rangers\*\*: small enemies shoot projectiles at you
+* \*\*jugglers\*\*: enemies who summon rotating projectiles around them
 
 ## power-ups
 
@@ -24,9 +25,7 @@ An example game made with vanilla js only. Run by opening "index.html" in any br
 
 ## upcoming features
 
-* permanent upgrades to your hp, damage, speed, etc.
+* bosses
 * better balance and more difficulty options
 * more attacks, enemies and power-ups
-* better ui and qol
 * more scalable ui
-* maybe actual sprites instead of just squares

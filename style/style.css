@@ -16,6 +16,11 @@ canvas{
     text-align: center;
 }
 
+.titlecard{
+    border-bottom: 1px solid #bababa;
+    margin-bottom: 5%;
+}
+
 #ctx{
     width: 1080px;
     height: 720px;
