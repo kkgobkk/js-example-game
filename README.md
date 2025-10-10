@@ -10,11 +10,11 @@ An example game made with vanilla js only. Run by opening "index.html" in any br
 
 ## enemies
 
-* \*\*normal\*\*: square enemies that take 1 hit
-* \*\*runners\*\*: tall enemies who move faster
-* \*\*tanks\*\*: large enemies take multiple hits to kill
-* \*\*rangers\*\*: small enemies shoot projectiles at you
-* \*\*jugglers\*\*: enemies who summon rotating projectiles around them
+* **normal**: square enemies that take 1 hit
+* **runners**: tall enemies who move faster
+* **tanks**: large enemies take multiple hits to kill
+* **rangers**: small enemies shoot projectiles at you
+* **jugglers**: enemies who summon rotating projectiles around them
 
 ## power-ups
 
