@@ -54,7 +54,7 @@ class Player extends Actor{
             Interface.drawEndScreen();
             return 0;
         }
-        if(this.i_frames > 0)
+        if(this.i_frames > 0 && Game.instance.debug == false)
             this.i_frames --;
         if(this.i_frames < 0)
             this.i_frames = 0;

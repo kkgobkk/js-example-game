@@ -1,5 +1,5 @@
 class Enemy extends Actor{
-    static AGGRO_DISTANCE = 200;
+    static AGGRO_DISTANCE = 0;
     static MAX_ENEMIES = 20;
     static colors = ["#000000", "#ff0000", "#cc0000", "#aa0000"];
     static list = {};
@@ -100,6 +100,12 @@ class Enemy extends Actor{
     static updateAll(){
         for(let i in Enemy.list){
             Enemy.list[i].update();
+        }
+    }
+
+    static killAll(){
+        for(let i in Enemy.list){
+            delete Enemy.list[i];
         }
     }
 }

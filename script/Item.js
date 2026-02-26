@@ -73,8 +73,9 @@ class Item extends Entity{
 
         if(Entity.distance(this, Game.instance.player) <= Item.MAGNET_RADIUS){
             this.aim_angle = Math.atan2(Game.instance.player.y - this.y, Game.instance.player.x - this.x) * 180 / Math.PI;
-            delta_x = 5 * Math.cos(this.aim_angle * Math.PI / 180);
-            delta_y = 5 * Math.sin(this.aim_angle * Math.PI / 180);
+            let velocity = 10 * (1 - Entity.distance(this, Game.instance.player)/Item.MAGNET_RADIUS);
+            delta_x =  velocity * Math.cos(this.aim_angle * Math.PI / 180);
+            delta_y = velocity * Math.sin(this.aim_angle * Math.PI / 180);
         }
 
         this.x += delta_x;

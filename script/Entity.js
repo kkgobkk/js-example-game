@@ -8,6 +8,7 @@ class Entity{
     width;
     height;
     color;
+    satellites = {};
 
     constructor(type, id, x, y, speed_x, speed_y, width, height, color){
         this.type = type;
@@ -67,8 +68,9 @@ class Entity{
 
     update(){
         let retv = this.updatePosition();
-        if(retv) 
+        if(retv){
             this.draw();
+        }
         return retv;
     }
 }

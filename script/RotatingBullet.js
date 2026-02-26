@@ -28,5 +28,4 @@ class RotatingBullet extends Bullet{
 
         return true;
     }
-
 }
